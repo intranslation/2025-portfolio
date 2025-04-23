@@ -1,0 +1,16 @@
+.hoverable-item {
+  transition: all 0.25s ease-in-out;
+}
+
+.hover-effect {
+  color: var(--color-gray-800);
+}
+
+.hover-effect > div {
+  transform: scale(2);
+  background: var(--color-gray-800);
+}
+
+.unfocused {
+  opacity: 0.3;
+}

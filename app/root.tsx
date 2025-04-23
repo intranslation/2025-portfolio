@@ -1,8 +1,8 @@
+import Lenis from "@studio-freight/lenis";
 import {
   isRouteErrorResponse,
   Links,
   Meta,
-  Outlet,
   Scripts,
   ScrollRestoration,
   useLocation,
@@ -12,7 +12,8 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { AnimatePresence } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
+import Cursor from "./components/ui/cursor/Cursor";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -33,11 +34,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <base href="/" />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="h-screen cursor-none">
         {children}
+
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -49,10 +52,25 @@ export default function App() {
   const location = useLocation();
   const element = useOutlet();
 
+  // const lenis = new Lenis();
+
+  // useEffect(() => {
+  //   function raf(time: any) {
+  //     lenis.raf(time);
+  //     requestAnimationFrame(raf);
+  //   }
+
+  //   requestAnimationFrame(raf);
+  // }, []);
+
   return (
-    <AnimatePresence mode="wait" initial={true}>
-      {element && React.cloneElement(element, { key: location.pathname })}
-    </AnimatePresence>
+    <>
+      <Cursor />
+
+      <AnimatePresence mode="wait" initial={true}>
+        {element && React.cloneElement(element, { key: location.pathname })}
+      </AnimatePresence>
+    </>
   );
 
   // return <Outlet />;
@@ -75,11 +93,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="container mx-auto p-4 pt-16">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="w-full overflow-x-auto p-4">
           <code>{stack}</code>
         </pre>
       )}
