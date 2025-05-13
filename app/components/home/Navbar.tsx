@@ -17,8 +17,8 @@ export default function Navbar() {
     function isElementInViewport(el) {
       const rect = el.getBoundingClientRect();
 
-      console.log(rect.y);
-      return rect.y > 0 && rect.y <= window.innerHeight / 2;
+      console.log(rect.top, rect.bottom);
+      return rect.bottom > 0 && rect.bottom <= window.innerHeight;
     }
     const container = document.querySelector(
       "#scroll-container",
@@ -57,7 +57,7 @@ export default function Navbar() {
     >
       <motion.ul
         className="flex flex-col py-2"
-        style={{
+        animate={{
           y: `${currentSectionIndex * -2.4}rem`,
         }}
       >
