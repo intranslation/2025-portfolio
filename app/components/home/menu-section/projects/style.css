@@ -1,9 +1,10 @@
 .hoverable-item {
   transition: all 0.25s ease-in-out;
+  color: var(--color-gray-700);
 }
 
 .hover-effect {
-  color: var(--color-gray-800);
+  color: var(--color-gray-200);
 }
 
 .hover-effect > div {

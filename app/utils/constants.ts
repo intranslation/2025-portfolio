@@ -1,11 +1,11 @@
 import type { ProjectItemType } from "~/types/project";
 
 export const projects: Array<ProjectItemType> = [
-  { id: "parallax", content: "HENRIQUE ALBUQUERQUE", url: "me" },
+  { id: "about", content: "HENRIQUE ALBUQUERQUE", url: "me" },
   {
-    id: "transitions",
+    id: "career",
     content: "SENIOR SOFTWARE ENGINEER",
     url: "career",
   },
-  { id: "mask", content: "MIXTAPES", url: "mixtapes" },
+  { id: "mixtapes", content: "MIXTAPES", url: "mixtapes" },
 ];

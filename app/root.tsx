@@ -1,4 +1,3 @@
-import Lenis from "@studio-freight/lenis";
 import {
   isRouteErrorResponse,
   Links,
@@ -12,7 +11,7 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { AnimatePresence } from "framer-motion";
-import React, { useEffect } from "react";
+import React from "react";
 import Cursor from "./components/ui/cursor/Cursor";
 
 export const links: Route.LinksFunction = () => [
@@ -38,7 +37,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="h-screen cursor-none">
+      <body id="scroll-container" className="h-screen cursor-none">
         {children}
 
         <ScrollRestoration />

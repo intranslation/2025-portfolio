@@ -1,4 +1,4 @@
-import { cubicBezier, type Variants } from "framer-motion";
+import { type Variants } from "framer-motion";
 
 export const anim = (variants: Variants, custom?: any) => {
   return {

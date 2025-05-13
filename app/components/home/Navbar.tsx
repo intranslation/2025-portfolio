@@ -1,56 +1,83 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import useIsPastFirstPage from "~/hooks/useIsPastFirstPage";
 import { projects } from "~/utils/constants";
 
 const languages = ["english", "portuguese"];
 
 export default function Navbar() {
-  const { scrollYProgress, scrollY } = useScroll();
-  const height = useTransform(
-    scrollY,
-    [0, window.innerHeight * 0.5],
-    ["1vh", "5vh"],
-  );
-
-  const [activeTab, setActiveTab] = useState(0);
-  const [activeLanguage, setActiveLanguage] = useState(0);
-
-  const Y = useTransform(scrollYProgress, [0, 1], ["0vw", "5vw"]);
+  const isPastFirstPage = useIsPastFirstPage();
+  const [currentSectionIndex, setCurrentSectionIndex] = useState(0);
 
   useEffect(() => {
-    console.log(scrollYProgress);
-  }, [scrollYProgress]);
+    const about = document.getElementById("about");
+    const career = document.getElementById("career");
+    // const mixtapes = document.getElementById("mixtapes");
+
+    function isElementInViewport(el) {
+      const rect = el.getBoundingClientRect();
+
+      console.log(rect.y);
+      return rect.y > 0 && rect.y <= window.innerHeight / 2;
+    }
+    const container = document.querySelector(
+      "#scroll-container",
+    ) as HTMLElement;
+    container.addEventListener("scroll", () => {
+      console.log("scrolling");
+      if (isElementInViewport(about)) {
+        setCurrentSectionIndex(0);
+      }
+      if (isElementInViewport(career)) {
+        setCurrentSectionIndex(1);
+      }
+      // if (isElementInViewport(mixtapes)) {
+      //   setCurrentSectionIndex(2);
+      // }
+    });
+  }, []);
 
   return (
     <motion.div
       style={{
-        height: Y,
-        // height: "10vh",
+        height: "3rem",
+        opacity: 0,
       }}
       animate={{
+        opacity: isPastFirstPage ? 1 : 0,
         transition: {
-          delay: 1,
+          delay: 0.5,
+          ease: "easeInOut",
         },
       }}
-      //   whileHover={{
-      //     height: "fit-content",
-      //   }}
-      className="fixed top-0 left-0 z-30 flex w-full justify-between overflow-hidden border border-gray-600 bg-white text-[2vw]"
+      // whileHover={{
+      //   height: "7.5rem",
+      // }}
+      className="fixed top-0 left-0 z-30 flex w-full justify-between overflow-hidden text-[1.5rem]"
     >
-      <ul className="flex flex-col py-2">
+      <motion.ul
+        className="flex flex-col py-2"
+        style={{
+          y: `${currentSectionIndex * -2.4}rem`,
+        }}
+      >
         {projects.map((project, i) => (
-          <li className="flex items-center gap-0 text-gray-500 hover:text-black">
+          <li
+            key={project.content}
+            className="flex items-center gap-0 text-gray-200 transition-colors hover:text-gray-200"
+          >
             <div className="mx-4 flex h-[1rem] w-[1rem] items-center justify-center rounded-full bg-gray-500 text-[.5rem] font-light tracking-normal text-white transition-transform">
               {i + 1}
             </div>
             {project.content}
           </li>
         ))}
-      </ul>
-      <p>{Y.get()}</p>
-      <ul className="px-2 py-2 text-right text-[2vw] font-light tracking-normal text-gray-600 uppercase hover:text-black">
+      </motion.ul>
+      <ul className="px-2 py-2 text-right font-light tracking-normal text-gray-400 uppercase">
         {languages.map((language) => (
-          <li>{language}</li>
+          <li key={language} className="transition-colors hover:text-gray-200">
+            {language}
+          </li>
         ))}
       </ul>
     </motion.div>

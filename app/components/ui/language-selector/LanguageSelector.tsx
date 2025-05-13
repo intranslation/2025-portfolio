@@ -8,7 +8,7 @@ export default function LanguageSelector() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="absolute top-0 right-0 mt-[2rem] mr-[20px] flex w-fit flex-col overflow-visible text-black select-none">
+    <div className="absolute top-0 right-0 mr-[20px] flex w-fit flex-col overflow-visible text-black select-none">
       <span
         className="flex flex-nowrap items-center justify-end gap-2 p-2 transition-all hover:text-purple-900"
         onClick={() => setIsOpen(!isOpen)}
@@ -26,7 +26,7 @@ export default function LanguageSelector() {
           {options.map((option) => (
             <span
               key={option}
-              className={`p-2 transition-all ${selected === option ? "text-purple-700" : ""} flex justify-end whitespace-nowrap hover:bg-black hover:text-white`}
+              className={`p-2 transition-all ${selected === option ? "text-purple-700" : ""} flex justify-end whitespace-nowrap hover:bg-gray-300 hover:text-white`}
               onClick={() => {
                 setSelected(option);
                 setIsOpen(!isOpen);

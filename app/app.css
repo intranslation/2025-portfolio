@@ -9,6 +9,9 @@
   --color-light-yellow: #fbf9ea;
 
   --font-poppins: "Poppins", sans-serif;
+
+  --breakpoint-ultrawide: 1920px;
+  --breakpoint-wide: 1440px;
 }
 
 h1,
@@ -25,22 +28,16 @@ h5 {
 
 html,
 body {
-  @apply dark:bg-light-yellow bg-light-yellow;
+  @apply bg-black dark:bg-black;
+  /* @apply dark:bg-light-yellow bg-light-yellow; */
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
 
-  scroll-snap-type: y mandatory;
+  /* smooth text */
+  /* -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory; */
   overflow-y: scroll;
-}
-
-p,
-span {
-  @apply text-black;
-}
-
-h1 {
-  /* font-size: 5vw; */
-  /* line-height: calc(5vw + 0.5rem); */
 }
