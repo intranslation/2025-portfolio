@@ -51,20 +51,11 @@ export default function App() {
   const location = useLocation();
   const element = useOutlet();
 
-  // const lenis = new Lenis();
-
-  // useEffect(() => {
-  //   function raf(time: any) {
-  //     lenis.raf(time);
-  //     requestAnimationFrame(raf);
-  //   }
-
-  //   requestAnimationFrame(raf);
-  // }, []);
+  const isMobile = window.innerWidth <= 800;
 
   return (
     <>
-      <Cursor />
+      {!isMobile && <Cursor />}
 
       <AnimatePresence mode="wait" initial={true}>
         {element && React.cloneElement(element, { key: location.pathname })}
