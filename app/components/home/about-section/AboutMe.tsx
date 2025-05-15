@@ -54,7 +54,7 @@ export default function AboutMe() {
                   ease: [0.83, 0, 0.17, 1],
                 },
               }}
-              className="mt-6 flex flex-nowrap gap-12 font-light text-white md:w-[40vw]"
+              className="mt-6 flex flex-nowrap gap-12 font-light text-white max-sm:py-8 md:w-[40vw]"
               style={{
                 fontSize: "clamp(1.5rem, 2vw, 3rem)",
                 lineHeight: "clamp(1.5rem, 2vw, 2rem)",
@@ -82,7 +82,7 @@ export default function AboutMe() {
           }}
           src="/img/blurred_art.png"
           alt=""
-          className="z-10 mb-auto h-full w-[55vw] object-cover max-sm:h-[60vh] max-sm:w-full md:h-[70vh] md:w-[50vw]"
+          className="z-10 mb-auto h-full w-[55vw] object-cover max-sm:h-[28vh] max-sm:w-full md:h-[70vh] md:w-[50vw]"
         />
       </motion.div>
 
@@ -102,7 +102,7 @@ export default function AboutMe() {
           }}
           className="text-left font-light"
           style={{
-            fontSize: "clamp(1.85rem, 2vw, 2.3rem)",
+            fontSize: "clamp(1.45rem, 2vw, 2.3rem)",
             lineHeight: "clamp(2.25rem, 3vw, 3.3rem)",
           }}
         >
