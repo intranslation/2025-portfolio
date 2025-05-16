@@ -4,7 +4,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { anim, fadeInText } from "~/animations/anim";
 import LanguageSelector from "../../ui/language-selector/LanguageSelector";
 import { useRef } from "react";
-import useIsPastFirstPage from "~/hooks/useIsPastFirstPage";
 
 export default function FullScreenMenu() {
   const container = useRef(
@@ -13,13 +12,8 @@ export default function FullScreenMenu() {
   const { scrollYProgress } = useScroll({ container });
   const opacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
-  const isPastFirstPage = useIsPastFirstPage();
-
   return (
-    <motion.div
-      // style={{ opacity }}
-      className="flex h-[101vh] flex-col justify-between overflow-visible px-4 py-8"
-    >
+    <motion.div className="flex h-[101vh] w-screen max-w-screen flex-col justify-between overflow-visible px-4 py-8">
       <motion.div
         className="relative flex items-end justify-between"
         style={{ opacity }}
@@ -38,15 +32,8 @@ export default function FullScreenMenu() {
       <motion.span
         className="flex flex-wrap items-center justify-start px-2 py-4 sm:mt-4 sm:px-5"
         style={{
-          // position: isPastFirstPage ? "absolute" : "sticky",
-          // justifyContent: isPastFirstPage ? "justify-center" : "justify-start",
-          opacity: isPastFirstPage ? 1 : opacity,
+          opacity,
         }}
-        // animate={
-        //   isPastFirstPage && {
-        //     opacity: 1,
-        //   }
-        // }
       >
         {projects.map(({ id, content, url }, index) => (
           <ProjectItem
@@ -61,9 +48,12 @@ export default function FullScreenMenu() {
 
       <div>
         <span className="relative flex w-fit">
-          <motion.span className="relative ml-auto" style={{ opacity }}>
-            MADE BY HENRIQUE ALBUQUERQUE
-          </motion.span>
+          <motion.small
+            className="font-libre relative ml-auto font-thin text-gray-400"
+            style={{ opacity }}
+          >
+            rolling amazing code since 2019
+          </motion.small>
         </span>
       </div>
     </motion.div>

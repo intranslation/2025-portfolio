@@ -35,11 +35,13 @@ export default function ScaleOut({ children }: PropsWithChildren) {
       {Array.from({ length: nbOfColumns }).map((_, i) =>
         i !== nbOfColumns - 1 ? (
           <motion.div
+            key={i}
             {...anim(slideIn, nbOfColumns - i)}
             className={`fixed top-0 h-screen w-screen skew-x-12 ${i % 2 === 0 ? "bg-black" : "bg-white"} z-50`}
           ></motion.div>
         ) : (
           <motion.div
+            key={i}
             {...anim(slideIn, nbOfColumns - i)}
             className={`fixed top-0 h-screen w-screen skew-x-12 ${i % 2 === 0 ? "bg-black" : "bg-white"} z-50`}
           ></motion.div>

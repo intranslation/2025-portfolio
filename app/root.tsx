@@ -11,8 +11,9 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 import { AnimatePresence } from "framer-motion";
-import React from "react";
+import React, { useEffect } from "react";
 import Cursor from "./components/ui/cursor/Cursor";
+import Lenis from "@studio-freight/lenis";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -29,7 +30,7 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,7 +38,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body id="scroll-container" className="h-screen cursor-none">
+      <body
+        id="scroll-container"
+        className="h-screen w-screen max-w-screen cursor-none overflow-x-hidden"
+      >
         {children}
 
         <ScrollRestoration />
@@ -52,6 +56,19 @@ export default function App() {
   const element = useOutlet();
 
   const isMobile = window.innerWidth <= 800;
+
+  useEffect(() => {
+    document.addEventListener("DOMContentLoaded", () => {
+      const lenis = new Lenis();
+
+      function raf(time: DOMHighResTimeStamp) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+
+      requestAnimationFrame(raf);
+    });
+  }, []);
 
   return (
     <>

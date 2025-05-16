@@ -1,5 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/helvetica-255");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -9,6 +9,7 @@
   --color-light-yellow: #fbf9ea;
 
   --font-poppins: "Poppins", sans-serif;
+  --font-libre: "Libre Baskerville", sans-serif;
 
   --breakpoint-ultrawide: 1920px;
   --breakpoint-wide: 1440px;
@@ -24,6 +25,7 @@ h5 {
 
 * {
   cursor: none;
+  box-sizing: border-box;
 }
 
 html,
@@ -38,6 +40,7 @@ body {
   /* smooth text */
   /* -webkit-font-smoothing: antialiased;
   scroll-behavior: smooth;
-  scroll-snap-type: y mandatory; */
   overflow-y: scroll;
+  /* width: 100dvh; */
+  /* max-width: 100dvh; */
 }

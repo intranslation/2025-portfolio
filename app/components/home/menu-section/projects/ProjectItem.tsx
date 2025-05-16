@@ -16,7 +16,8 @@ const BigWord = ({
   children,
   id,
   delay,
-}: PropsWithChildren<{ id: string; delay: number }>) => {
+  index,
+}: PropsWithChildren<{ id: string; delay: number; index: number }>) => {
   const [isInView, setVisibility] = useState(false);
   const ref = useRef<null | HTMLAnchorElement>(null);
 
@@ -85,23 +86,19 @@ const BigWord = ({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      <a
+      <motion.a
         {...anim(fadeInDelay, delay)}
         ref={ref}
         href={"#" + id}
         data-id={id}
-        className={`hoverable-item z-10 flex items-center px-2 py-0 tracking-tighter break-words transition-all ${isInView && "hover-effect"}`}
-        //leading-[14vw] text-[12vw] xl:text-[10vw] 2xl:text-[7vw]
+        className={`hoverable-item z-10 flex items-center px-2 py-0 tracking-tighter transition-all ${isInView && "hover-effect"} ${index == 0 && "font-libre"} break-words`}
         style={{
-          // color: isInView ? "#fff" : "text-gray-700",
-          // fontSize: isPastFirstPage ? "2vw" : "10vw",
-          // lineHeight: isPastFirstPage ? "2vw" : "10vw",
-          fontSize: "clamp(4rem, 10vw, 13rem)",
-          lineHeight: "clamp(5rem, 11vw, 13rem)",
+          fontSize: "clamp(4rem, 10vw, 12rem)",
+          lineHeight: "clamp(5rem, 11vw, 12rem)",
         }}
       >
         {children}
-      </a>
+      </motion.a>
     </motion.span>
   );
 };
@@ -123,7 +120,7 @@ export const ProjectItem = ({
     const isFirstWord = index === 0;
 
     return (
-      <BigWord key={word + index} id={id} delay={itemIndex + 1}>
+      <BigWord key={word + index} id={id} delay={itemIndex + 1} index={index}>
         {isFirstWord && <LittleRoundNumber>{itemIndex + 1}</LittleRoundNumber>}
         {word}
       </BigWord>

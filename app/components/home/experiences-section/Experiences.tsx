@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const experiences = [
   {
@@ -37,11 +37,19 @@ export default function Experiences() {
   return (
     <motion.section
       id="career"
-      className="mx-4 flex min-h-screen flex-col justify-center py-[10vh]"
+      className="flex max-h-screen min-h-screen w-screen flex-col justify-center px-4 py-[10vh] max-sm:mx-2 max-sm:px-0"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1, transition: { duration: 0.5, delay: 1 } }}
     >
-      <div className="h-fit px-4">
+      <span
+        className="z-10 mt-[10vh] text-[5vw] font-thin tracking-tighter whitespace-nowrap uppercase max-sm:whitespace-normal"
+        style={{
+          fontSize: "clamp(2rem, 5vw, 10rem)",
+        }}
+      >
+        Experiences
+      </span>
+      <div className="h-fit">
         {experiences.map((experience, index) => (
           <ExperienceCard key={index} experience={experience} />
         ))}
@@ -55,25 +63,73 @@ function ExperienceCard({
 }: {
   experience: (typeof experiences)[0];
 }) {
+  const ref = useRef<null | HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [showHoverEffect, setShowHoverEffect] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  const isMobile = window.innerWidth <= 800;
+
+  const expand = () => {
+    setExpanded(true);
+  };
+
+  const close = () => {
+    setExpanded(false);
+  };
+
+  useEffect(() => {
+    if (!isMobile) {
+      return;
+    }
+
+    const scrollContainer = document.querySelector(
+      "#scroll-container",
+    ) as HTMLElement;
+
+    const onScroll = () => {
+      if (!ref || !ref.current) return;
+
+      const offsetTop = ref.current.getBoundingClientRect().top;
+      const boundaries = {
+        min: window.innerHeight - ref.current.offsetHeight,
+        max: window.innerHeight + ref.current.offsetHeight,
+      };
+      if (offsetTop >= boundaries.min && offsetTop <= boundaries.max) {
+        setShowHoverEffect(true);
+        return;
+      }
+      setShowHoverEffect(false);
+    };
+    scrollContainer.addEventListener("scroll", onScroll);
+    return () => {
+      scrollContainer.removeEventListener("scroll", onScroll);
+    };
+  }, []);
+
   return (
     <motion.div
-      className="relative w-full overflow-hidden"
-      onMouseOver={() => setIsHovering(true)}
-      onMouseOut={() => setIsHovering(false)}
+      ref={ref}
+      className="relative my-8 w-full overflow-hidden max-sm:px-2"
+      style={{
+        position: expanded ? "static" : "relative",
+      }}
+      onMouseOver={() => !isMobile && setIsHovering(true)}
+      onMouseOut={() => !isMobile && setIsHovering(false)}
+      onClick={() => expand()}
     >
-      <div className="z-10 flex w-full items-center justify-between max-sm:my-8 max-sm:flex-col">
+      <div className="z-10 flex w-full items-center justify-between max-sm:my-8 max-sm:flex-col max-sm:items-start">
         <span
           className="z-10 text-[5vw] font-light tracking-tighter whitespace-nowrap uppercase mix-blend-difference max-sm:whitespace-normal"
           style={{
-            fontSize: "clamp(3rem, 5vw, 10rem)",
+            fontSize: "clamp(2.8rem, 5vw, 10rem)",
           }}
         >
           {title}
         </span>
         <div className="flex w-full items-center justify-between">
           <span
-            className="z-10 mr-auto ml-6 text-[2vw] font-light whitespace-nowrap text-gray-300 mix-blend-difference"
+            className="z-10 mr-auto ml-6 text-[2vw] font-light whitespace-nowrap text-gray-300 mix-blend-difference max-sm:ml-0"
             style={{
               fontSize: "clamp(1rem, 2vw, 10rem)",
             }}
@@ -88,7 +144,7 @@ function ExperienceCard({
         </div>
       </div>
       <motion.div
-        className="absolute top-0 left-0 z-30 flex h-full w-full items-center justify-between"
+        className="absolute top-0 left-0 z-30 flex h-full w-full flex-col items-center justify-center"
         style={{
           background: "#fff",
           maskImage:
@@ -98,13 +154,19 @@ function ExperienceCard({
           maskSize: "100%",
         }}
         animate={{
-          maskSize: isHovering ? "100%" : "0%",
+          position: expanded ? "static" : "absolute",
+          height: expanded ? "100vh" : "100%",
+          width: expanded ? "100vw" : "100%",
+          maskSize: isHovering || showHoverEffect || expanded ? "100%" : "0%",
           transition: {
             duration: 0.25,
             ease: "easeInOut",
           },
         }}
       >
+        <button onClick={() => close()} className="text-black">
+          CLOSE
+        </button>
         <span
           className="z-10 px-2 text-[3vw] font-light tracking-tighter whitespace-normal uppercase mix-blend-difference"
           style={{

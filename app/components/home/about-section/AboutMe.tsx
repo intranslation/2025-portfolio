@@ -15,7 +15,7 @@ export default function AboutMe() {
   return (
     <motion.section
       id="about"
-      className="relative flex h-full min-h-screen snap-start flex-col justify-start perspective-midrange perspective-origin-center"
+      className="relative flex h-full min-h-screen max-w-screen flex-col justify-start perspective-midrange perspective-origin-center"
     >
       <motion.div
         className="relative flex h-full items-center justify-between"
@@ -35,7 +35,7 @@ export default function AboutMe() {
               whileInView={{
                 opacity: 1,
                 transition: {
-                  delay: 0.5,
+                  // delay: 0.5,
                   duration: 1,
                   ease: [0.83, 0, 0.17, 1],
                 },
@@ -106,12 +106,12 @@ export default function AboutMe() {
             lineHeight: "clamp(2.25rem, 3vw, 3.3rem)",
           }}
         >
-          I'm an experienced engineer, with a focus on building visual
-          experiences for enterprise level software, delivering applications
-          that help people make better decisions based on data. I've developed
-          projects in a variety of industries, such as banking, retail,
-          marketing, and airlines. Apps based in GenAI and Data Visualization
-          are my bread and butter.
+          I'm an experienced engineer focused on building visual experiences for
+          enterprise-level software, delivering applications that help people
+          make better decisions based on data. I've developed projects across
+          various industries, including banking, retail, marketing, and
+          airlines. Applications based on GenAI and data visualization are my
+          bread and butter.
         </motion.p>
       </motion.div>
     </motion.section>

@@ -7,5 +7,5 @@ export const projects: Array<ProjectItemType> = [
     content: "SENIOR SOFTWARE ENGINEER",
     url: "career",
   },
-  { id: "mixtapes", content: "MIXTAPES", url: "mixtapes" },
+  { id: "findme", content: "FIND ME", url: "findme" },
 ];

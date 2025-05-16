@@ -12,29 +12,41 @@ export default function Navbar() {
   useEffect(() => {
     const about = document.getElementById("about");
     const career = document.getElementById("career");
-    // const mixtapes = document.getElementById("mixtapes");
 
-    function isElementInViewport(el) {
-      const rect = el.getBoundingClientRect();
-
-      console.log(rect.top, rect.bottom);
-      return rect.bottom > 0 && rect.bottom <= window.innerHeight;
+    function isElementInViewport(el: HTMLElement) {
+      const height = el.offsetHeight;
+      const heightDiff = height / 2;
+      const top = el.getBoundingClientRect().top + heightDiff;
+      return top <= window.innerHeight && top >= 0;
     }
+
     const container = document.querySelector(
       "#scroll-container",
     ) as HTMLElement;
-    container.addEventListener("scroll", () => {
-      console.log("scrolling");
-      if (isElementInViewport(about)) {
-        setCurrentSectionIndex(0);
+
+    const onScroll = () => {
+      if (!about || !career) {
+        return;
       }
+
+      console.log(about.getBoundingClientRect().top, window.innerHeight);
+      console.log(career.getBoundingClientRect().top, window.innerHeight);
+
       if (isElementInViewport(career)) {
         setCurrentSectionIndex(1);
+        console.log("career on viewport");
       }
-      // if (isElementInViewport(mixtapes)) {
-      //   setCurrentSectionIndex(2);
-      // }
-    });
+      if (isElementInViewport(about)) {
+        setCurrentSectionIndex(0);
+        console.log("about on viewport");
+      }
+    };
+
+    container.addEventListener("scroll", onScroll);
+
+    return () => {
+      container.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   return (

@@ -29,6 +29,7 @@ export const fadeInText = {
   enter: {
     top: "0vw",
     transition: {
+      delay: 0.5,
       duration: 1,
       ease: [0.83, 0, 0.17, 1],
     },
